@@ -1,8 +1,6 @@
 name: Close Pull Requests
 
-on:
-  pull_request:
-    types: [opened]
+on: [pull_request,workflow_dispatch]
 
 jobs:
   close_pull_request:
