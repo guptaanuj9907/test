@@ -1,33 +1,11 @@
-name: Close Pull Requests
+name: Close Pull Request
 
-on: [pull_request,workflow_dispatch]
+on:
+  pull_request_target:
+    types: [opened]
 
 jobs:
-  close_pull_request:
+  run:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Close Pull Request
-      uses: actions/github-script@v3
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        import os
-        import sys
-        import requests
-
-        pull_request_number = os.getenv("GITHUB_EVENT_NUMBER")
-        print(pull_request_number)
-        repository = os.getenv("GITHUB_REPOSITORY")
-        print(repository)
-        headers = {
-            "Authorization": f"token {os.getenv('GITHUB_TOKEN')}"
-        }
-
-        # close the pull request
-        pull_request_url = f"https://api.github.com/repos/{repository}/pulls/{pull_request_number}"
-        response = requests.patch(pull_request_url, headers=headers, json={"state": "closed"})
-
-        if response.status_code != 200:
-            print(f"Failed to close pull request. Response: {response.text}", file=sys.stderr)
-            sys.exit(1)
+    - uses: superbrothers/close-pull-request@v3
