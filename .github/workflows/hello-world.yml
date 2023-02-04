@@ -10,5 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print message
-        run: echo "PR created!"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print changed files and directories
+        run: |
+          changed_files=$(git diff --name-only HEAD ${{ github.event.pull_request.head.sha }})
+          for file in $changed_files; do
+            echo $file
+          done
+
+    # steps:
+    #   - name: Print message
+    #     run: echo "PR created!"
