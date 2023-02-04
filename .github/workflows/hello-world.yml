@@ -1,11 +1,14 @@
-name: Hello World
+name: PR Created
 
-on: [push,workflow_dispatch]
+on:
+  pull_request:
+    types: [opened]
+  workflow_dispatch:
 
 jobs:
-  print_hello_world:
+  print_message:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Hello World
-      run: echo "Hello World!"
+      - name: Print message
+        run: echo "PR created!"
