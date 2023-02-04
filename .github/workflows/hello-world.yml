@@ -3,9 +3,16 @@ name: Hello World
 on: [push,workflow_dispatch]
 
 jobs:
-  print_hello_world:
+  print_file_changed:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Hello World
-      run: echo "Hello World!"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Print changed files
+        run: |
+          changed_files=$(git diff --name-only HEAD ${{ github.event.pull_request.head.sha }})
+          for file in $changed_files; do
+            echo $file
+          done
