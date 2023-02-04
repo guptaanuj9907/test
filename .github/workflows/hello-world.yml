@@ -13,6 +13,5 @@ jobs:
       - name: Print changed files
         run: |
           changed_files=$(git diff --name-only HEAD ${{ github.event.pull_request.head.sha }})
-          for file in $changed_files; do
-            echo $file
-          done
+          echo $changed_files
+         
