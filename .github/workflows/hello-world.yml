@@ -7,11 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 #
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Print changed files
-        run: |
-          changed_files=$(git diff --name-only HEAD ${{ github.event.pull_request.head.sha }})
-          echo $changed_files
+      - uses: Stockopedia/action-get-changed-files@v1
+        id: get_changed
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore: "**/+(.github)"
+          foldersOnly: false 
+          format: csv
+      - name: Echo changed files
+        run: echo ${{ steps.get_changed.outputs.changed }}
          
