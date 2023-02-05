@@ -1,18 +1,17 @@
-name: Fetch Changed Files
+name: Close Pull Request
 
 on:
   pull_request:
     types: [opened]
 
 jobs:
-  fetch_changed_files:
+  close_pull_request:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Fetch Changed Files
+    - name: Close Pull Request
       run: |
-        echo "Changed files in this pull request:"
-        git diff --name-only $GITHUB_BASE_REF...$GITHUB_HEAD_REF
+        curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+             -X PATCH \
+             -d '{"state": "closed"}' \
+             "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
