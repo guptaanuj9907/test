@@ -1,16 +1,21 @@
-name: PR Closer
+name: Create issue on commit
 
-on:
-  pull_request:
-    types: [opened, reopened]
-
+on: [ push ]
 
 jobs:
-  close-pull-request:
+  create_issue:
     runs-on: ubuntu-latest
-    name: Close Pull Request
+    permissions:
+      issues: write 
     steps:
-      - uses: codelytv/no-pull-requests@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          message: 🙅 We don't accept Pull Requests!
+      - name: Create issue using REST API
+        run: |
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
