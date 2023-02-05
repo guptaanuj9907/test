@@ -5,15 +5,29 @@ on:
     types: [opened]
 
 jobs:
-  build:
-
+  close_pr:
+    name: Close Pull Request
     runs-on: ubuntu-latest
-  
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
       
-      
-      - name: Install dependencies
-        run: |
-          print("anuj")
-        shell: python
-      
+    - name: Close Pull Request
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        import os
+        import requests
+        pull_request_number = str(os.environ["GITHUB_PULL_REQUEST"])
+        headers = {
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"token {os.environ['GITHUB_TOKEN']}"
+        }
+        requests.patch(
+            f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pull_request_number}",
+            headers=headers,
+            json={
+                "state": "closed"
+            }
+        )
+      shell: python
