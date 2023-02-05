@@ -15,4 +15,5 @@ jobs:
     - name: Print Changed Files
       run: |
         echo "Changed Files:"
+        echo GITHUB_SHA $GITHUB_SHA 
         git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
