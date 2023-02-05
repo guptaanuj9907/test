@@ -19,16 +19,4 @@ jobs:
         import os
         import requests
         print("anuj")
-        pull_request_number = str(os.environ["GITHUB_PULL_REQUEST"])
-        print(pull_request_number)
-        headers = {
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"token {os.environ['GITHUB_TOKEN']}"
-        }
-        requests.patch(
-            f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pull_request_number}",
-            headers=headers,
-            json={
-                "state": "closed"
-            }
-        )
+        
