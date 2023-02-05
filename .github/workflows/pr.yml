@@ -6,30 +6,41 @@ on:
 
 jobs:
   close_pr:
+    name: Analyze
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    permissions:
+      actions: write
+      contents: write
+      security-events: write
 
-    - name: Close pull request
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+
+    - name: Initialize CodeQL
       uses: python
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        import os
-        import requests
-        print("anuj")
-        pull_request_number = os.environ.get("GITHUB_EVENT_NUMBER")
-        print(pull_request_number)
-        headers = {
+
+    - run: |
+       import os
+       import requests
+       print("anuj")
+       pull_request_number = os.environ.get("GITHUB_EVENT_NUMBER")
+       print(pull_request_number)
+       headers = {
             "Accept": "application/vnd.github+json",
             "Authorization": f"token {os.environ['GITHUB_TOKEN']}"
         }
-        
-        requests.patch(
+       requests.patch(
             f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pull_request_number}",
             headers=headers,
             json={
                 "state": "closed"
             }
-        )
+       )
+
+
+
+    
