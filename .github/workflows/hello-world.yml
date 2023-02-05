@@ -1,18 +1,16 @@
-name: Close PR
+name: PR Closer
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
+
 
 jobs:
-  close_pr:
+  close-pull-request:
     runs-on: ubuntu-latest
-
+    name: Close Pull Request
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Close PR
-      uses: webfactory/close-pull-request-action@v3
-      with:
-        comment: "This pull request will not be merged because it violates our guidelines."
+      - uses: codelytv/no-pull-requests@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message: 🙅 We don't accept Pull Requests!
