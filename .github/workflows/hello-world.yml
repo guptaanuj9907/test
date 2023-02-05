@@ -18,6 +18,8 @@ jobs:
       run: |
         import os
         import requests
+        import github
+
         pull_request_number = str(github.event.pull_request.number)
         headers = {
             "Accept": "application/vnd.github+json",
