@@ -1,8 +1,9 @@
 name: Close PR
 
-on:
-  pull_request:
-    types: [opened]
+on: [workflow_dispatch]
+  # pull_request:
+  #   types: [opened]
+   
 
 jobs:
   close_pr:

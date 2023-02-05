@@ -1,8 +1,8 @@
 name: Print Hello on Push
-on: 
-  push:
-  pull_request:
-    types: [opened]
+on: [workflow_dispatch]
+  # push:
+  # pull_request:
+  #   types: [opened]
 
 jobs:
   build:
