@@ -16,11 +16,11 @@ jobs:
       run: |
         echo "${{ github.repository }}"
         echo "${{ github.event.number }}"
-        # curl --request PATCH \
-        #   --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
-        #   --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-        #   --header "Accept: application/vnd.github+json" \
-        #   --data '{"state": "closed"}' \
-        #   --fail
+        curl --request PATCH \
+          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
+          --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          --header "Accept: application/vnd.github+json" \
+          --data '{"state": "closed"}' \
+          --fail
 
     
