@@ -18,7 +18,7 @@ jobs:
       run: |
         import os
         import requests
-        pull_request_number = str(os.environ["GITHUB_PULL_REQUEST"])
+        pull_request_number = str(github.event.pull_request.number)
         headers = {
             "Accept": "application/vnd.github+json",
             "Authorization": f"token {os.environ['GITHUB_TOKEN']}"
