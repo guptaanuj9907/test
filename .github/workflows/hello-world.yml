@@ -1,4 +1,4 @@
-name: Close new pull requests
+name: Close PR
 
 on:
   pull_request:
@@ -6,30 +6,13 @@ on:
 
 jobs:
   close_pr:
-    name: Close Pull Request
     runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      
-    - name: Close Pull Request
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        import os
-        import requests
-        import github
 
-        pull_request_number = str(github.event.pull_request.number)
-        headers = {
-            "Accept": "application/vnd.github+json",
-            "Authorization": f"token {os.environ['GITHUB_TOKEN']}"
-        }
-        requests.patch(
-            f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pull_request_number}",
-            headers=headers,
-            json={
-                "state": "closed"
-            }
-        )
-      shell: python
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Close PR
+      uses: webfactory/close-pull-request-action@v3
+      with:
+        comment: "This pull request will not be merged because it violates our guidelines."
