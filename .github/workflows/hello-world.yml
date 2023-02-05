@@ -15,4 +15,4 @@ jobs:
     - name: Print Changed Files
       run: |
         echo "Changed files in this pull request:"
-        git diff --name-only $GITHUB_BASE_REF...$GITHUB_HEAD_REF
+        git diff -v --name-only $GITHUB_BASE_REF...$GITHUB_HEAD_REF
