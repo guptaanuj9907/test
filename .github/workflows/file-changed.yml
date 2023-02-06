@@ -23,6 +23,7 @@ jobs:
           --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
+         echo $file_list
 
         # import requests
         # import os
