@@ -29,6 +29,7 @@ jobs:
 
          echo $file_list
          file="folder1/file1.txt"
+         flag=0
          for file_name in $file_list
          do
           if [[ $file_name == $file ]]
@@ -36,8 +37,6 @@ jobs:
             flag=1
             echo file_name :$file_name and flag: $flag
             break
-          else
-            flag=0
           fi
          done
          echo ::set-output name=flag::$flag
