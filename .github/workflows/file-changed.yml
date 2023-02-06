@@ -14,9 +14,9 @@ jobs:
 
     - name: Get list of changed files
       run: |
-         echo "${{ github.repository }}"
-         echo "${{ github.event.number }}"
-         echo https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files"
+         echo repository "${{ github.repository }}"
+         echo event.number "${{ github.event.number }}"
+         echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files"
          curl --request GET \
           --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
           --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
