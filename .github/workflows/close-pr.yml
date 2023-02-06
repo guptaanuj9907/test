@@ -31,7 +31,7 @@ jobs:
 
         repository = os.getenv("GITHUB_REPOSITORY")
         print(repository)
-        pull_request_number = os.getenv("GITHUB_EVENT_NUMBER")
+        pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
         print(pull_request_number)
         token = os.getenv("TOKEN")
 
