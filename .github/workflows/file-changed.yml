@@ -1,8 +1,9 @@
 name: Print Changed Files
 
-on: [workflow_dispatch]
-  # pull_request:
-  #   types: [opened]
+on: 
+  workflow_dispatch:
+  pull_request:
+    types: [opened]
 
 jobs:
   print_changed_files:
