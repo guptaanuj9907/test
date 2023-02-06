@@ -28,10 +28,10 @@ jobs:
           jq -r '.[].filename')
 
          echo $file_list
-  
+         file="folder1/file1.txt"
          for file_name in $file_list
          do
-          if [[ $file_name == "folder1/file1.txt" ]]
+          if [[ $file_name == $file ]]
           then
             flag=1
             echo file_name :$file_name and flag: $flag
