@@ -25,7 +25,7 @@ jobs:
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
 
-         
+         echo $file_list
   
          for file_name in $file_list
          do
@@ -38,7 +38,7 @@ jobs:
             flag=0
           fi
          done
-
+         echo $flag
     - name: Close the PR
       if: steps.get_list_of_changed_files.outputs.flag == '1'
       run: |
