@@ -15,7 +15,7 @@ jobs:
 
     - name: Get list of changed files
       run: |
-         file_to_check = folder1/file1.txt
+         
          echo repository "${{ github.repository }}"
          echo event.number "${{ github.event.number }}"
          echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
@@ -26,6 +26,7 @@ jobs:
           jq -r '.[].filename')
 
          echo $file_list
+         file_to_check = "folder1/file1.txt"
          for file_name in $file_list
          do
           if [ $file_name == $file_to_check ]
