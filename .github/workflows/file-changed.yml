@@ -14,12 +14,34 @@ jobs:
 
     - name: Get list of changed files
       run: |
-         echo repository "${{ github.repository }}"
-         echo event.number "${{ github.event.number }}"
-         echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
-         curl --request GET \
-          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
-          --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
-          --header "Accept: application/vnd.github+json" | \
-          jq -r '.[].filename'
+        #  echo repository "${{ github.repository }}"
+        #  echo event.number "${{ github.event.number }}"
+        #  echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
+        #  curl --request GET \
+        #   --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+        #   --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+        #   --header "Accept: application/vnd.github+json" | \
+        #   jq -r '.[].filename'
+
+        import requests
+        import os
+
+        repo = os.getenv("GITHUB_REPOSITORY")
+        pull_request_number = os.getenv("GITHUB_EVENT_NUMBER")
+        url = f"https://api.github.com/repos/{repo}/pulls/{pull_request_number}/files"
+
+        headers = {
+            "Authorization": f"Bearer {os.getenv('TOKEN')}",
+            "Accept": "application/vnd.github+json"
+        }
+
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            files = response.json()
+            file_paths = [f["filename"] for f in files]
+            print("File paths:", file_paths)
+        else:
+            print("Failed to get file paths, status code:", response.status_code)
+
 
