@@ -1,10 +1,10 @@
 name: Close PR
 
 on: 
-  workflow_dispatch:
+  # workflow_dispatch:
 
-  # pull_request:
-  #   types: [opened]
+  pull_request:
+    types: [opened]
    
 
 jobs:
@@ -17,36 +17,36 @@ jobs:
 
     - name: Close PR
       run: |
-        # echo "${{ github.repository }}"
-        # echo "${{ github.event.number }}"
-        # echo https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}
-        # curl --request PATCH \
-        #   --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
-        #   --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
-        #   --header "Accept: application/vnd.github+json" \
-        #   --data '{"state": "closed"}' \
-        #   --fail
-        import requests
-        import os
+        echo "${{ github.repository }}"
+        echo "${{ github.event.number }}"
+        echo https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}
+        curl --request PATCH \
+          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
+          --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+          --header "Accept: application/vnd.github+json" \
+          --data '{"state": "closed"}' \
+          --fail
+      #   import requests
+      #   import os
 
-        repository = os.getenv("GITHUB_REPOSITORY")
-        print(repository)
-        pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
-        print(pull_request_number)
-        token = os.getenv("TOKEN")
+      #   repository = os.getenv("GITHUB_REPOSITORY")
+      #   print(repository)
+      #   pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
+      #   print(pull_request_number)
+      #   token = os.getenv("TOKEN")
 
-        url = f"https://api.github.com/repos/{repository}/pulls/{pull_request_number}"
-        headers = {
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json"
-        }
-        data = '{"state": "closed"}'
+      #   url = f"https://api.github.com/repos/{repository}/pulls/{pull_request_number}"
+      #   headers = {
+      #       "Authorization": f"Bearer {token}",
+      #       "Accept": "application/vnd.github+json"
+      #   }
+      #   data = '{"state": "closed"}'
 
-        response = requests.patch(url, headers=headers, data=data)
+      #   response = requests.patch(url, headers=headers, data=data)
 
-        if response.status_code != 200:
-            raise Exception("Request to close pull request failed")
-      shell: python
+      #   if response.status_code != 200:
+      #       raise Exception("Request to close pull request failed")
+      # shell: python
 
 
 
