@@ -12,8 +12,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Print Changed Files
+    - name: Get list of changed files
       run: |
-        echo "Changed Files:"
-        echo GITHUB_SHA $GITHUB_SHA 
-        git diff-tree --no-commit-id --name-only -r $GITHUB_SHA
+        changed_files=$(git diff-tree -r --name-only --no-commit-id HEAD^)
+        echo "Changed files:"
+        echo "${changed_files}"
