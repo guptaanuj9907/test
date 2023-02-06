@@ -15,6 +15,7 @@ jobs:
 
     - name: Get list of changed files
       run: |
+         file_name = folder1/file1.txt
          echo repository "${{ github.repository }}"
          echo event.number "${{ github.event.number }}"
          echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
@@ -23,11 +24,29 @@ jobs:
           --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
+
          echo $file_list
-         for element in $file_list
+         for file_name in $file_list
          do
-          echo file1 : $element
+          if [ $file_name == $file_to_check ]
+          then
+            flag = 1
+            echo file_name :$file_name and flag: $flag
+            break
+          else
+            flag = 0
          done
+
+    - name: Close the PR
+      if: steps.get_list_of_changed_files.outputs.flag == '1'
+      run: |
+          curl --request PATCH \
+          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
+          --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+          --header "Accept: application/vnd.github+json" \
+          --data '{"state": "closed"}' \
+          --fail
+
 
         # import requests
         # import os
