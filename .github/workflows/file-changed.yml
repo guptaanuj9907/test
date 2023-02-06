@@ -15,7 +15,7 @@ jobs:
 
     - name: Get list of changed files
       run: |
-         file_name = folder1/file1.txt
+         file_to_check = folder1/file1.txt
          echo repository "${{ github.repository }}"
          echo event.number "${{ github.event.number }}"
          echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
