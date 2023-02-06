@@ -14,6 +14,6 @@ jobs:
 
     - name: Get list of changed files
       run: |
-        changed_files=$(git diff-tree -r --name-only --no-commit-id HEAD^)
+        changed_files=$(git diff-tree -r --name-only --no-commit-id HEAD...${{ github.base_ref }})
         echo "Changed files:"
         echo "${changed_files}"
