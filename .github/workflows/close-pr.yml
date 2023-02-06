@@ -31,7 +31,12 @@ jobs:
 
         repository = os.getenv("GITHUB_REPOSITORY")
         print(repository)
-        pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
+        with open(os.environ["GITHUB_EVENT_PATH"]) as event_file:
+        event_data = json.load(event_file)
+
+        pull_request_number = event_data.get("pull_request", {}).get("number")
+
+        # pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
         print(pull_request_number)
         token = os.getenv("TOKEN")
 
