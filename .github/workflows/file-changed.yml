@@ -14,6 +14,12 @@ jobs:
 
     - name: Get list of changed files
       run: |
-        changed_files=$(git diff-tree -r --name-only --no-commit-id HEAD...${{ github.base_ref }})
-        echo "Changed files:"
-        echo "${changed_files}"
+         echo "${{ github.repository }}"
+         echo "${{ github.event.number }}"
+         echo https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files"
+         curl --request GET \
+          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+          --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+          --header "Accept: application/vnd.github+json" | \
+          jq -r '.[].filename'
+
