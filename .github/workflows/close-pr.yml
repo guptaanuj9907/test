@@ -28,6 +28,7 @@ jobs:
         #   --fail
         import requests
         import os
+        import json
 
         repository = os.getenv("GITHUB_REPOSITORY")
         print(repository)
