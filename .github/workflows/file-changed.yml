@@ -27,7 +27,9 @@ jobs:
         import os
 
         repo = os.getenv("GITHUB_REPOSITORY")
+        print(repo)
         pull_request_number = os.getenv("GITHUB_EVENT_NUMBER")
+        print(pull_request_number)
         url = f"https://api.github.com/repos/{repo}/pulls/{pull_request_number}/files"
 
         headers = {
@@ -43,5 +45,6 @@ jobs:
             print("File paths:", file_paths)
         else:
             print("Failed to get file paths, status code:", response.status_code)
+      shell: python
 
 
