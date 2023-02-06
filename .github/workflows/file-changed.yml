@@ -40,7 +40,7 @@ jobs:
          done
          echo $flag
     - name: Close the PR
-      if: steps.get_list_of_changed_files.outputs.flag == '1'
+      if: steps.get_list_of_changed_files.outputs.flag == 1
       run: |
           curl --request PATCH \
           --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
