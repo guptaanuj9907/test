@@ -32,7 +32,7 @@ jobs:
         repository = os.getenv("GITHUB_REPOSITORY")
         print(repository)
         with open(os.environ["GITHUB_EVENT_PATH"]) as event_file:
-        event_data = json.load(event_file)
+          event_data = json.load(event_file)
 
         pull_request_number = event_data.get("pull_request", {}).get("number")
 
