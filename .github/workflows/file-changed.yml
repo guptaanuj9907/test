@@ -25,7 +25,7 @@ jobs:
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
 
-         echo $file_list
+         
   
          for file_name in $file_list
          do
