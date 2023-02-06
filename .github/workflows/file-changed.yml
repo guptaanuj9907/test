@@ -36,6 +36,7 @@ jobs:
             break
           else
             flag = 0
+          fi
          done
 
     - name: Close the PR
