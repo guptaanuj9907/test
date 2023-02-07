@@ -17,7 +17,6 @@ jobs:
       id: get_list_of_changed_files
 
       run: |
-         
          echo repository "${{ github.repository }}"
          echo event.number "${{ github.event.number }}"
          echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
@@ -28,7 +27,7 @@ jobs:
           jq -r '.[].filename')
 
          echo $file_list
-         file="folder1/file1.txt"
+         file="folder1/file5.txt"
          flag=0
          for file_name in $file_list
          do
