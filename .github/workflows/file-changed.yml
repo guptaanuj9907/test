@@ -1,0 +1,65 @@
+name: Print Changed Files
+
+on: 
+  # workflow_dispatch:
+  pull_request:
+    types: [opened]
+
+jobs:
+  print_changed_files:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Get list of changed files
+      id: get_list_of_changed_files
+
+      run: |
+         echo repository "${{ github.repository }}"
+         echo event.number "${{ github.event.number }}"
+         echo URL https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}/files
+         file_list=$(curl --request GET \
+          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+          --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+          --header "Accept: application/vnd.github+json" | \
+          jq -r '.[].filename')
+
+         flag=0
+         file='.github/workflows/filename'
+         for name in `cat $file`
+         do
+          echo file name is $name
+          for file_name in $file_list
+          do
+            if [[ $file_name == $name ]]
+            then
+            flag=1
+            echo file_name :$file_name and flag: $flag
+            break
+            fi
+          done
+          if [[ flag == 1 ]]
+          then
+          break
+          fi
+         done
+         echo ::set-output name=flag::$flag
+
+        
+      
+    # - name: Close the PR
+    #   if: steps.get_list_of_changed_files.outputs.flag == 1
+    #   run: |
+    #       curl --request PATCH \
+    #       --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
+    #       --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+    #       --header "Accept: application/vnd.github+json" \
+    #       --data '{"state": "closed"}' \
+    #       --fail
+
+
+        
+
+

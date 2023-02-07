@@ -1,0 +1,26 @@
+name: Print Hello on Push
+on: [workflow_dispatch]
+  # push:
+  # pull_request:
+  #   types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Details
+      run: |
+        pwd
+        ls
+        echo GITHUB_SHA $GITHUB_SHA
+        echo GITHUB_REPOSITORY $GITHUB_REPOSITORY
+        echo GITHUB_WORKSPACE $GITHUB_WORKSPACE
+        echo github.token "${{ github.token }}"
+        echo github.sha "${{ github.sha }}"
+        echo github.workflow  "${{ github.workflow }}"
+        echo secrets.GITHUB_TOKEN ${{ secrets.GITHUB_TOKEN }}
+
