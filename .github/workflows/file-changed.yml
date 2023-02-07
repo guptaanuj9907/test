@@ -26,19 +26,40 @@ jobs:
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
 
-         echo $file_list
-         file="folder1/file5.txt"
          flag=0
-         for file_name in $file_list
+         file=filename
+         for name in `cat $file`
+         echo file name is $name
          do
-          if [[ $file_name == $file ]]
-          then
+          for file_name in $file_list
+          do
+            if [[ $file_name == $name ]]
+            then
             flag=1
             echo file_name :$file_name and flag: $flag
             break
+            fi
+          done
+          if [[ flag == 1 ]]
+          then
+          break
           fi
          done
          echo ::set-output name=flag::$flag
+
+        #  echo $file_list
+        #  file="folder1/file1.txt"
+        #  flag=0
+        #  for file_name in $file_list
+        #  do
+        #   if [[ $file_name == $file ]]
+        #   then
+        #     flag=1
+        #     echo file_name :$file_name and flag: $flag
+        #     break
+        #   fi
+        #  done
+        #  echo ::set-output name=flag::$flag
       
     - name: Close the PR
       if: steps.get_list_of_changed_files.outputs.flag == 1
