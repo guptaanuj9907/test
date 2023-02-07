@@ -29,8 +29,8 @@ jobs:
          flag=0
          file=filename
          for name in `cat $file`
-         echo file name is $name
          do
+          echo file name is $name
           for file_name in $file_list
           do
             if [[ $file_name == $name ]]
