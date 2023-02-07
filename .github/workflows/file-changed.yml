@@ -47,53 +47,19 @@ jobs:
          done
          echo ::set-output name=flag::$flag
 
-        #  echo $file_list
-        #  file="folder1/file1.txt"
-        #  flag=0
-        #  for file_name in $file_list
-        #  do
-        #   if [[ $file_name == $file ]]
-        #   then
-        #     flag=1
-        #     echo file_name :$file_name and flag: $flag
-        #     break
-        #   fi
-        #  done
-        #  echo ::set-output name=flag::$flag
+        
       
-    - name: Close the PR
-      if: steps.get_list_of_changed_files.outputs.flag == 1
-      run: |
-          curl --request PATCH \
-          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
-          --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
-          --header "Accept: application/vnd.github+json" \
-          --data '{"state": "closed"}' \
-          --fail
+    # - name: Close the PR
+    #   if: steps.get_list_of_changed_files.outputs.flag == 1
+    #   run: |
+    #       curl --request PATCH \
+    #       --url "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
+    #       --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
+    #       --header "Accept: application/vnd.github+json" \
+    #       --data '{"state": "closed"}' \
+    #       --fail
 
 
-        # import requests
-        # import os
-
-      #   repo = os.getenv("GITHUB_REPOSITORY")
-      #   print(repo)
-      #   pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
-      #   print(pull_request_number)
-      #   url = f"https://api.github.com/repos/{repo}/pulls/{pull_request_number}/files"
-
-      #   headers = {
-      #       "Authorization": f"Bearer {os.getenv('TOKEN')}",
-      #       "Accept": "application/vnd.github+json"
-      #   }
-
-      #   response = requests.get(url, headers=headers)
-
-      #   if response.status_code == 200:
-      #       files = response.json()
-      #       file_paths = [f["filename"] for f in files]
-      #       print("File paths:", file_paths)
-      #   else:
-      #       print("Failed to get file paths, status code:", response.status_code)
-      # shell: python
+        
 
 

@@ -1,2 +1,28 @@
 practice in folder1s
 as
+
+
+
+# import requests
+        # import os
+
+      #   repo = os.getenv("GITHUB_REPOSITORY")
+      #   print(repo)
+      #   pull_request_number = os.getenv("GITHUB_EVENT_PULL_REQUEST_NUMBER")
+      #   print(pull_request_number)
+      #   url = f"https://api.github.com/repos/{repo}/pulls/{pull_request_number}/files"
+
+      #   headers = {
+      #       "Authorization": f"Bearer {os.getenv('TOKEN')}",
+      #       "Accept": "application/vnd.github+json"
+      #   }
+
+      #   response = requests.get(url, headers=headers)
+
+      #   if response.status_code == 200:
+      #       files = response.json()
+      #       file_paths = [f["filename"] for f in files]
+      #       print("File paths:", file_paths)
+      #   else:
+      #       print("Failed to get file paths, status code:", response.status_code)
+      # shell: python
