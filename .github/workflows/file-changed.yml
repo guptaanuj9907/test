@@ -27,7 +27,7 @@ jobs:
           jq -r '.[].filename')
 
          flag=0
-         file=filename
+         file='.github/workflows/filename'
          for name in `cat $file`
          do
           echo file name is $name
