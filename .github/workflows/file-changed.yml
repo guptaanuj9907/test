@@ -25,27 +25,27 @@ jobs:
           --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
-
-         flag=0
-         file='.github/workflows/filename'
-         for name in `cat $file`
-         do
-          echo file name is $name
-          for file_name in $file_list
-          do
-            if [[ $file_name == $name ]]
-            then
-            flag=1
-            echo file_name :$file_name and flag: $flag
-            break
-            fi
-          done
-          if [[ flag == 1 ]]
-          then
-          break
-          fi
-         done
-         echo ::set-output name=flag::$flag
+         echo $file_list
+        #  flag=0
+        #  file='.github/workflows/filename'
+        #  for name in `cat $file`
+        #  do
+        #   echo file name is $name
+        #   for file_name in $file_list
+        #   do
+        #     if [[ $file_name == $name ]]
+        #     then
+        #     flag=1
+        #     echo file_name :$file_name and flag: $flag
+        #     break
+        #     fi
+        #   done
+        #   if [[ flag == 1 ]]
+        #   then
+        #   break
+        #   fi
+        #  done
+        #  echo ::set-output name=flag::$flag
 
         
       
