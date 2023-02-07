@@ -25,7 +25,7 @@ jobs:
           --header "Authorization: Bearer ${{ secrets.TOKEN }}" \
           --header "Accept: application/vnd.github+json" | \
           jq -r '.[].filename')
-         echo $(dirname file_list)
+         echo $(dirname $file_list)
         #  flag=0
         #  file='.github/workflows/filename'
         #  for name in `cat $file`
